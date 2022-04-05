@@ -5,3 +5,10 @@ Projet étudiant qui gère le fonctionnement d'une carte ESP8266 entourée de ca
 - comptage de points
 - détection des mouvements
 - gestion de différentes phases de jeu
+
+Liste des composants 3v3 : 
+- capteur optique laser x8
+- diode laser (classe 2) x2
+- capteur de mouvement x2
+- bouton poussoir x4
+- LED x2
