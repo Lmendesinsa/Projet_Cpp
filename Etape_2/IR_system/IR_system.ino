@@ -42,8 +42,7 @@ void setup() {
 }
 
 void loop() {
-    Serial.println(detection());
-    tirer(false);
+    Serial.println(analogRead(pinIrSensor));
     delay(100);
  ;
 

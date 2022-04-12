@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
 
+=======
+#ifndef _CLASSE_H_
+#define _CLASSE_H_
+
+>>>>>>> 325faa713882d4870f0ca23a0e11086a1abe0569
 #include <Arduino.h>
 
 
@@ -79,3 +85,7 @@ class diode : public digital{
 
 
 #endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 325faa713882d4870f0ca23a0e11086a1abe0569
