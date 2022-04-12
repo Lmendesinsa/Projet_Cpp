@@ -4,6 +4,7 @@
 
 const int pinIrSensor = A0; 
 const int pinIrEmitter= D3; 
+const int pinBouton= D5;
 
 
 #if defined(ARDUINO_ARCH_AVR)
@@ -17,11 +18,16 @@ const int pinIrEmitter= D3;
 void setup() {
     diode ir(pinIrEmitter, HIGH);
     Serial.begin(9600);
+    digital bouton(pinBouton,INPUT);
+
+
 
 }
 
 void loop() {
+    if (bouton.getlevel==1){ir.setDiode(HIGH);}
+    else{ir.setDiode(LOW);}
     int a=analogRead(pinIrSensor);
     Serial.println(a);
-    delay(50);
+    delay(100);
 }
