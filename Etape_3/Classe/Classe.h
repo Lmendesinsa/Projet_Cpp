@@ -1,4 +1,6 @@
 #include "Classe.cpp"
+#include "Arduino.h"
+
 
 namespace Classe{
 class composant{ 

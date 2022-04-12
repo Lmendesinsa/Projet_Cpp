@@ -12,8 +12,7 @@ const int pinIrEmitter= D3;
 #endif
 
 void setup() {
-    //diode ir(pinIrEmitter, HIGH);
-    pinMode(pinIrEmitter, INPUT);
+    pinMode(pinIrEmitter, 0);
     Serial.begin(9600);
     
 
@@ -21,5 +20,9 @@ void setup() {
 }
 
 void loop() {
+     pinMode(pinIrSensor, 1);
+     println(
+     
+
     
 }
