@@ -1,3 +1,6 @@
+#include "Classe.h"
+#include "Arduino.h"
+
 
 const int pinIrSensor = A0; 
 const int pinIrEmitter= D3; 
@@ -12,14 +15,13 @@ const int pinIrEmitter= D3;
 #endif
 
 void setup() {
-    //diode ir(pinIrEmitter, HIGH);
-    pinMode(pinIrEmitter, INPUT);
+    diode ir(pinIrEmitter, HIGH);
     Serial.begin(9600);
-    
 
-     
 }
 
 void loop() {
-    
+    int a=analogRead(pinIrSensor);
+    Serial.println(a);
+    delay(50);
 }

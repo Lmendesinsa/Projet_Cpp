@@ -1,20 +1,71 @@
-#include "Classe.cpp"
+#ifndef _CLASSE_H_
+#define _CLASSE_H_
+
 #include "Arduino.h"
+#include "stdlib.h"
 
+#define INPUT 0x0
+#define OUTPUT 0x1
 
-namespace Classe{
+#define LOW 0x0
+#define HIGH 0x1
+
 class composant{ 
-    public:
-    void setPin(int p);
+  protected:
+    int pin;
+
+
+  public:
+    composant(){ this->pin = 0;} // constructeur sans argument
+    composant(int p) { // constructeur avec arguments
+      this->pin = p;;
+    }
+
+    void setPin(int p){
+      this->pin = p;
+    }
+
+  
+         
 };
+
+
 
 class digital: public composant{
-    public:
-    void setPin(int p); 
-    void setMode(int m);         
+  protected :   
+    int mode;
+    
+  public:
+    digital() : composant(){this->mode = INPUT;} // constructeur sans argument
+    digital(int p, int m) : composant(p){
+       this->mode = m;
+       pinMode(this->pin, this->mode);
+    } // constructeur avec arguments
+      
+  
+    void setPin(int p) {
+      composant :: setPin(p);
+      pinMode(this->pin, this->mode);
+    }
+     void setMode(char m){
+      this->mode = m;
+      pinMode(this->pin, this->mode);
+    }
+         
 };
 
-class diode : public digital{  
+class diode : public digital{
+  protected : 
+    int level;
+    
+  public :
+    diode() : digital(){this->level = 0; this->mode = OUTPUT;} // constructeur sans argument
+    diode(int p, int l) : digital(p, OUTPUT){this->level = l; digitalWrite(this->pin, this->level);} // constructeur avec arguments
+
+    
 };
 
-}
+
+
+#endif
+
