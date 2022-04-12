@@ -35,7 +35,7 @@ void tirer(bool tir){
 
 void setup() {
 
-     Serial.begin(9600);
+     Serial.begin(57600);
      pinMode(pinIrEmitter, OUTPUT);
 
      
