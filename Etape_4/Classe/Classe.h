@@ -1,10 +1,11 @@
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
 
+#include <iostream>
+
+using namespace std;
 
 #include <Arduino.h>
-
-
 #define INPUT 0x0
 #define OUTPUT 0x1
 
@@ -74,6 +75,26 @@ class diode : public digital{
 
 
     
+};
+
+class game{ 
+  protected:
+    int nb_joueur;
+    int score_max;
+    map<string, int> score;
+  public:
+    class finGame{
+      public:
+      string gagnant;
+    };
+    game(){this->nb_joueur = 0; this->score_max = 0;}
+    game(int j, int s){this->nb_joueur = j; this->score_max = s;}
+
+    void ajouterJoueur(string joueur){
+      score[joueur] = 0; 
+      nb_joueur++;
+    }
+         
 };
 
 
