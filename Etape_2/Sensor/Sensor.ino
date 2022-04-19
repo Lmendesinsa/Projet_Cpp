@@ -15,7 +15,8 @@ const int pinIrEmitter= D3;
 void setup() {
 
      Serial.begin(9600);
-
+     pinMode(pinIrEmitter,OUTPUT);
+     digitalWrite(pinIrEmitter,HIGH);
 }
 
 void loop() {

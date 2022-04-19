@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
 
-=======
-#ifndef _CLASSE_H_
-#define _CLASSE_H_
 
->>>>>>> 325faa713882d4870f0ca23a0e11086a1abe0569
 #include <Arduino.h>
 
 
@@ -73,7 +67,7 @@ class diode : public digital{
   public :
     diode() : digital(){this->level = 0; this->mode = OUTPUT;} // constructeur sans argument
     diode(int p, int l) : digital(p, OUTPUT){this->level = l; digitalWrite(this->pin, this->level);} // constructeur avec arguments
-    int setDiode(int l){
+    void setDiode(int l){
       digitalWrite(this->pin,l);
       this->level=l;
       }
@@ -85,7 +79,3 @@ class diode : public digital{
 
 
 #endif
-<<<<<<< HEAD
-=======
-
->>>>>>> 325faa713882d4870f0ca23a0e11086a1abe0569
