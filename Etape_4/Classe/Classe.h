@@ -83,7 +83,7 @@ class game{
     int score_max;
     map<string, int> score;
   public:
-    class finGame{
+    class finGame{ //Permet de récuperer données erreur
       public:
       string gagnant;
     };
@@ -94,7 +94,9 @@ class game{
       score[joueur] = 0; 
       nb_joueur++;
     }
-         
+
+
+         ///FAIRE SURCHARGE OPERATEUR
 };
 
 

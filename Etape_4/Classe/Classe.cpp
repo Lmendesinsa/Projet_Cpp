@@ -5,7 +5,7 @@
 #include <iostream>
 #include <map>
 
-void StartGame(void){
+void InitGame(void){
   int nbjoueur;
   int scoremax;
   cout<<"Entrer nombre de joueur : "<<endl;
@@ -13,4 +13,14 @@ void StartGame(void){
   cout<<"Entrer score fin de partie : "<<endl;
   cin>> scoremax;
   game Game(nbjoueur, scoremax);
+}
+
+void StartGame(void){
+//Mettre ce qu'il y a dans le ino
+//+comptage score{
+//    try...
+//}
+//catch(game::fin...
+
+
 }
