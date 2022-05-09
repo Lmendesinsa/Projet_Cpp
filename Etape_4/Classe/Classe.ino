@@ -1,3 +1,5 @@
+#include <ArduinoSTL.h>
+
 #include "Classe.h"
 #include <Arduino.h>
 #include <iostream>

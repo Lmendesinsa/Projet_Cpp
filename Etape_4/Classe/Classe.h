@@ -1,5 +1,8 @@
+#include <ArduinoSTL.h>
+
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
+
 
 #include <iostream>
 
