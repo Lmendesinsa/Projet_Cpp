@@ -1,14 +1,9 @@
-
-
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
 
 
-#include <iostream>
 #include <Arduino.h>
 
-
-using namespace std;
 
 #define INPUT 0x0
 #define OUTPUT 0x1
@@ -84,12 +79,20 @@ class diode : public digital{
 class joueur{
   private:
   int score;
-  string nom;  
+  char nom;  
 
-  public: 
-  void setNom(string nom){
-    this->nom = nom;
+  public:
+  joueur() {score=0;}  
+
+  void setNom(char in){
+    nom = in;
   }
+
+  void setScore(int in){
+    score = in;
+  }
+
+  int getScore(void){return score;}
 };
 
 
@@ -99,9 +102,10 @@ class game{
     int score_max;
     
   public:
+
     class finGame{ //Permet de récuperer données erreur
       public:
-      string gagnant;
+      String gagnant;
     };
     game(){this->nb_joueur = 0; this->score_max = 0;}
     game(int j, int s){this->nb_joueur = j; this->score_max = s;}
@@ -109,14 +113,10 @@ class game{
     int getNbJoueur(){
       return nb_joueur;
     }
-
-
-         ///FAIRE SURCHARGE OPERATEUR
 };
 
-void InitGame(void);
-void StartGame(void);
-
+//Fonctions
+game InitGame(int nb_joueur, int score_max);
 
 
 
