@@ -36,8 +36,8 @@ void setup() {
 
     for(int i=0;i<nb_joueur;i++){
       liste[i]=joueur();
+      liste[i]=setScore(0);
     }
-    Serial.println(liste[1].getScore());
 /*Association des joueurs à leur PIN
 Nous n'avons ici que deux joueurs : un qui tire et un qui reçoit
 On peut ici facilement rajouter des joueurs.
@@ -66,13 +66,14 @@ void loop() {
         
     }
     
-    if(liste[1].getScore()>score_max){fin=1;}
+    if(liste[1].getScore()>=score_max){fin=1;}
   }
   Serial.println("La partie est finie");
   delay(20000);
   
-  Serial.println("Remise à zéro");
+  Serial.println("Remise a zero");
   liste[1].setScore(0);
+  fin=0;
 
 
     /*
