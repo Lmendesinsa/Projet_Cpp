@@ -85,6 +85,7 @@ class joueur{
   int pin_capt;
 
   public:
+  
   joueur() {
     score=0;
     pin=0;
@@ -124,7 +125,20 @@ class joueur{
   int getScore(void){return score;}
 
   int getPin(void){return pin;}
+
 };
+
+//Retourne l'addition de scores de joueurs
+
+joueur operator+(joueur& j1, joueur& j2) {
+  int s;
+  s=j1.getScore();
+  s += j2.getScore();
+  return s;
+};
+
+
+
 
 
 class game{ 
