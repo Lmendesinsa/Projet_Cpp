@@ -7,7 +7,7 @@ const int pinIrEmitter= D3;
 const int pinBouton= D5;
 const int pinLEDVerte= D6;
 const int pinLEDRouge= D8;
-const int nb_joueur= 2;
+const int nb_joueur= 1;
 const int score_max= 20;
 
 #if defined(ARDUINO_ARCH_AVR)
@@ -23,39 +23,65 @@ digital bouton(pinBouton,INPUT);
 diode vert(pinLEDVerte, LOW);
 diode rouge(pinLEDRouge, LOW);
 
-int a=0;
+//Config partie et liste joueur
+game partie(nb_joueur,score_max);
+joueur liste[nb_joueur];
+
+int fin = 0;
+
 
 void setup() {
-    
+
     Serial.begin(9600);
-    game partie(nb_joueur,score_max);
-    joueur liste[nb_joueur];
+
     for(int i=0;i<nb_joueur;i++){
       liste[i]=joueur();
-      liste[i].setScore(i);
-      Serial.println(liste[i].getScore());
-
     }
-
-      
+    Serial.println(liste[1].getScore());
+/*Association des joueurs à leur PIN
+Nous n'avons ici que deux joueurs : un qui tire et un qui reçoit
+On peut ici facilement rajouter des joueurs.
+Dans la classe on a aussi prévu l'association de deux pin par jouer(réception et émission)
+*/
+    liste[0].setPin(pinIrEmitter);
+    liste[1].setPin(pinIrSensor);      
 }
 
 void loop() {
-
-
+  while(fin==0){
+    delay(1000);
     if (bouton.getlevel()==HIGH){ir.setDiode(HIGH);}
     else{ir.setDiode(LOW);}
-    a=analogRead(pinIrSensor);
-    if (a<=850){
-      vert.setDiode(HIGH);
-      rouge.setDiode(LOW);
-      delay(1000);
+
+    if(Touche(liste[0].getPin())==true){
+        vert.setDiode(HIGH);
+        rouge.setDiode(LOW);
+        liste[1].incScore(10);
+        Serial.println(liste[1].getScore());
+
     }
-    else{
-      vert.setDiode(LOW);
-      rouge.setDiode(HIGH);
-      delay(1000);
+      else{
+        vert.setDiode(LOW);
+        rouge.setDiode(HIGH);
+        
     }
     
-    Serial.println(a);
+    if(liste[1].getScore()>score_max){fin=1;}
+  }
+  Serial.println("La partie est finie");
+  delay(20000);
+  
+  Serial.println("Remise à zéro");
+  liste[1].setScore(0);
+
+
+    /*
+    catch(int erreur){
+      switch (erreur){
+        case 1:Serial.println("Pas de joueur");break;
+        case 2:Serial.println("Problème récepteur");break;
+      }
+    }
+    */
+  
 }

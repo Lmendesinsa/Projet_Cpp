@@ -80,9 +80,30 @@ class joueur{
   private:
   int score;
   char nom;  
+  int pin;
+  int pin_tir;
+  int pin_capt;
 
   public:
-  joueur() {score=0;}  
+  joueur() {
+    score=0;
+    pin=0;
+    pin_tir = 0;
+    pin_capt = 0;}  
+
+  joueur(int pin) {
+    score=0;
+    this->pin=pin;
+    pin_tir = 0;
+    pin_capt = 0;
+    } 
+
+  joueur(int pin_tir, int pin_capt) {
+    score=0;
+    this->pin=0;
+    this->pin_tir = pin_tir;
+    this->pin_capt = pin_capt;
+    } 
 
   void setNom(char in){
     nom = in;
@@ -92,7 +113,17 @@ class joueur{
     score = in;
   }
 
+  void incScore(int in){
+    score += in;
+  }
+
+   void setPin(int in){
+    pin = in;
+  }
+
   int getScore(void){return score;}
+
+  int getPin(void){return pin;}
 };
 
 
@@ -107,8 +138,12 @@ class game{
       public:
       String gagnant;
     };
+
     game(){this->nb_joueur = 0; this->score_max = 0;}
-    game(int j, int s){this->nb_joueur = j; this->score_max = s;}
+
+    game(int j, int s){
+      this->nb_joueur = j;
+      this->score_max = s;}
 
     int getNbJoueur(){
       return nb_joueur;
@@ -116,7 +151,7 @@ class game{
 };
 
 //Fonctions
-game InitGame(int nb_joueur, int score_max);
+boolean Touche(int pin);
 
 
 
