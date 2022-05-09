@@ -1,7 +1,6 @@
 #include "Classe.h"
-#include <Arduino.h>
 #include <iostream>
-#include <map>
+#include <Arduino.h>
 
 
 const int pinIrSensor = A0; 
@@ -26,14 +25,15 @@ diode rouge(pinLEDRouge, LOW);
 int a=0;
 
 void setup() {
-    
     Serial.begin(9600);
+    InitGame();
+    
 }
 
 void loop() {
 
-
-    if (bouton.getlevel()==HIGH){ir.setDiode(HIGH);}
+   
+  if (bouton.getlevel()==HIGH){ir.setDiode(HIGH);}
     else{ir.setDiode(LOW);}
     a=analogRead(pinIrSensor);
     if (a<=850){
@@ -46,6 +46,7 @@ void loop() {
       rouge.setDiode(HIGH);
       delay(1000);
     }
+    
     
     Serial.println(a);
 }
