@@ -5,10 +5,11 @@
 
 
 #include <iostream>
+#include <Arduino.h>
+
 
 using namespace std;
 
-#include <Arduino.h>
 #define INPUT 0x0
 #define OUTPUT 0x1
 
@@ -80,11 +81,23 @@ class diode : public digital{
     
 };
 
+class joueur{
+  private:
+  int score;
+  string nom;  
+
+  public: 
+  void setNom(string nom){
+    this->nom = nom;
+  }
+};
+
+
 class game{ 
   protected:
     int nb_joueur;
     int score_max;
-    map<string, int> score;
+    
   public:
     class finGame{ //Permet de récuperer données erreur
       public:
@@ -93,15 +106,16 @@ class game{
     game(){this->nb_joueur = 0; this->score_max = 0;}
     game(int j, int s){this->nb_joueur = j; this->score_max = s;}
 
-    void ajouterJoueur(string joueur){
-      score[joueur] = 0; 
-      nb_joueur++;
+    int getNbJoueur(){
+      return nb_joueur;
     }
 
 
          ///FAIRE SURCHARGE OPERATEUR
 };
 
+void InitGame(void);
+void StartGame(void);
 
 
 
