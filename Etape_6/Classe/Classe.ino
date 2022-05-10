@@ -16,20 +16,20 @@ const int pinBouton= D5;
 const int pinLEDVerte= D6;
 const int pinLEDRouge= D8;
 
-// Création des objets sur les bons Pin et initialisation de leurs configurations
-diode ir(pinIrEmitter, LOW);
-digital bouton(pinBouton,INPUT);
-diode vert(pinLEDVerte, LOW);
-diode rouge(pinLEDRouge, LOW);
 
 /* CHOIX DES PARAMETRES DE LA PARTIE */////////////////////////////////////////////////////
 // Paramètre à changer avant de lancer une partie
 const String nom_joueur= "Laura";             // Le nom du joueur en question
-const int score_max= 20;                      // Le score max à atteindre pour finir la gamme
-const int nb_tentatives = 5;                  // Le nombre de tentatives pour le joueur d'améliorer son score
+const int score_max= 5;                       // Le score max à atteindre pour finir la gamme
+const int nb_tentatives = 2;                  // Le nombre de tentatives pour le joueur d'améliorer son score
+
+/* VARIABLES ET OBJETS *//////////////////////////////////////////////////////////////////
 game game(nom_joueur,score_max,nb_tentatives);// Construction d'une game
 score score[nb_tentatives];                   // Structure qui contient le score de chaque partie
-
+diode ir(pinIrEmitter, LOW);
+digital bouton(pinBouton,INPUT);
+diode vert(pinLEDVerte, LOW);
+diode rouge(pinLEDRouge, LOW);
 int fin_game ;
 int num_tentative; 
 
@@ -45,6 +45,7 @@ void loop() {
 
 
   while(num_tentative < nb_tentatives){ // Tant que il reste des tentatives au joueur
+    Serial.println("LANCEMENT D'UNE TENTATIVE");
     while(fin_game==0){ // Tant que la game n'est pas finie
       // Le joueur appui sur un bouton
       if (bouton.getlevel()==HIGH){
@@ -72,25 +73,35 @@ void loop() {
       else{
         ir.setDiode(LOW);
         Serial.println(" ");
-
       }
       
-      
-     
       // Vérifier si le score max a été atteint
       if (score[num_tentative].getScore()==score_max){
         fin_game = 1;
         num_tentative++;
+        Serial.print("Fin de la tentative numéro ");
         Serial.println(num_tentative);
+        delay(10000);  
       }
     }
     fin_game = 0;
   }
   num_tentative = 0;
+  Serial.println("Fin de la game ------------------------------- ");
+  Serial.print("Affichage des scores du joueur ");
+  Serial.println(nom_joueur);
 
+  // Parcours du tableau de scores du joueur
+  for (int i = 0; i<nb_tentatives; i++){
+    Serial.print("Tentative numéro ");
+    Serial.println(i);
+    Serial.print("Score final : ");
+    Serial.println(score[i].getScore()-score[i].getFail());
+    delay(100);
+  }
+  Serial.println("Changer les paramètres et relancer pour nouvelles partie !");
   delay(10000);
 
-  
 }
  
 

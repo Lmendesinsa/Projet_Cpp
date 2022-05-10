@@ -11,27 +11,26 @@
 #define LOW 0x0
 #define HIGH 0x1
 
+/* Classe permettant de gérer composant quelconque :
+ @attribut pin : associer un composant à une pin
+ */
 class composant{ 
   protected:
     int pin;
-
-
   public:
     composant(){ this->pin = 0;} // constructeur sans argument
     composant(int p) { // constructeur avec arguments
       this->pin = p;;
     }
-
-    void setPin(int p){
+    void setPin(int p){ // Régler la Pin d'un composant
       this->pin = p;
-    }
-
-  
-         
+    }        
 };
 
 
-
+/* Classe permettant de régler un composant digital :
+ @attribut mode : permet de régler en INPUT ou OUTPUT le fonctionnement du composant
+ */
 class digital: public composant{
   protected :   
     int mode;
@@ -44,15 +43,15 @@ class digital: public composant{
     } // constructeur avec arguments
       
   
-    void setPin(int p) {
+    void setPin(int p) { // Initialiser un composant sur la bonne Pin
       composant :: setPin(p);
       pinMode(this->pin, this->mode);
     }
-     void setMode(char m){
+     void setMode(char m){ // Changer le mode d'un composant
       this->mode = m;
       pinMode(this->pin, this->mode);
     }
-    int getlevel(){
+    int getlevel(){ // Récupérer la valeur d'une entrée numérique
       int result=-1;
       if (this->mode == INPUT){result=digitalRead(this->pin);}
       return result;
@@ -60,20 +59,20 @@ class digital: public composant{
          
 };
 
+/* Classe permettant de régler une diode RGB ou IR:
+ @attribut level : permet de d'allumer ou éteindre une diode
+ */
 class diode : public digital{
   protected : 
-    int level;
-    
+    int level; 
   public :
     diode() : digital(){this->level = 0; this->mode = OUTPUT;} // constructeur sans argument
     diode(int p, int l) : digital(p, OUTPUT){this->level = l; digitalWrite(this->pin, this->level);} // constructeur avec arguments
-    void setDiode(int l){
+    
+    void setDiode(int l){ // Régler le niveau et le Pin d'un composant digital
       digitalWrite(this->pin,l);
       this->level=l;
-      }
-
-
-    
+    } 
 };
 
 
@@ -90,39 +89,44 @@ class game{
 
     
   public:
+    game(){ this->score_max = 0; this->nb_tentatives = 0;} // constructeur sans arguments
 
-    game(){ this->score_max = 0; this->nb_tentatives = 0;}
-
-    game(String j, int s, int t){
+    game(String j, int s, int t){ // constructeur avec arguments
       this->nom_joueur = j;
       this->score_max = s;
       this->nb_tentatives = t;
     }
 
-    void setScoreMax(int score){
+    void setScoreMax(int score){ // Changer la valeur du score à atteindre
       this->score_max = score;
     }
 
-    void setNomJoeur(String nom){
+    void setNomJoeur(String nom){ // Changer le nom du joueur
       this->nom_joueur = nom;
     }
 
-    void setNomJoeur(int tentatives){
+    void setNomJoeur(int tentatives){ // Changer le nombre de tentatives disponibles
       this->nb_tentatives = tentatives;
     }
 };
 
-/* Classe créée à chaque tentatives */
+/* Classe créée à chaque tentatives pour conserver les performances du joueur :
+ @attribut nb_fail : augmente quand le joueur tir à côté de la cible
+ @attribut nb_success : augmente quand le joueur tir sur la cible
+ */ 
 class score{ 
   private:
     int nb_fail;
     int nb_success;
 
   public:
-    score(){ this->nb_fail = 0; this->nb_success = 0;}
+    score(){ this->nb_fail = 0; this->nb_success = 0;} // Constructeur sans argument initilise à 0 les valeurs des parties
 
-    int getScore(){
+    int getScore(){ // accès au nombre de succès
       return this->nb_success;
+    }
+    int getFail(){ // accès au nombre d'échec
+      return this->nb_fail;
     }
     // Opérateur ++ augmente le nombre de success
     void operator ++() { 
@@ -136,7 +140,10 @@ class score{
 
 
 
-//Fonctions
+/* Fonction permettant de vérifier que la cible a été touchée :
+@arg : numéro de pin à tester
+@return : true si touché, false sinon 
+*/
 boolean Touche(int pin);
 
 
