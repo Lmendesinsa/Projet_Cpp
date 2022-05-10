@@ -76,93 +76,65 @@ class diode : public digital{
     
 };
 
-class joueur{
-  private:
-  int score;
-  char nom;  
-  int pin;
-  int pin_tir;
-  int pin_capt;
 
-  public:
-  
-  joueur() {
-    score=0;
-    pin=0;
-    pin_tir = 0;
-    pin_capt = 0;}  
-
-  joueur(int pin) {
-    score=0;
-    this->pin=pin;
-    pin_tir = 0;
-    pin_capt = 0;
-    } 
-
-  joueur(int pin_tir, int pin_capt) {
-    score=0;
-    this->pin=0;
-    this->pin_tir = pin_tir;
-    this->pin_capt = pin_capt;
-    } 
-
-  void setNom(char in){
-    nom = in;
-  }
-
-  void setScore(int in){
-    score = in;
-  }
-
-  void incScore(int in){
-    score += in;
-  }
-
-   void setPin(int in){
-    pin = in;
-  }
-
-  int getScore(void){return score;}
-
-  int getPin(void){return pin;}
-
-};
-
-//Retourne l'addition de scores de joueurs
-/*
-joueur operator+(joueur& j1, joueur& j2) {
-  int s;
-  s=j1.getScore();
-  s += j2.getScore();
-  return s;
-};
-*/
-
-
-
-
+/* Classe créée dès qu'une partie est créée :
+ @attribut nom_joueur : le nom du joueur qui lance la game
+ @attribut score_max : le score a réalisé pour gagner la game
+ @attribut nb_tentatives : le nombre de tentatives dans la game
+ */
 class game{ 
   protected:
-    int nb_joueur;
+    String nom_joueur;
     int score_max;
+    int nb_tentatives;
+
     
   public:
 
-    class finGame{ //Permet de récuperer données erreur
-      public:
-      String gagnant;
-    };
+    game(){ this->score_max = 0; this->nb_tentatives = 0;}
 
-    game(){this->nb_joueur = 0; this->score_max = 0;}
+    game(String j, int s, int t){
+      this->nom_joueur = j;
+      this->score_max = s;
+      this->nb_tentatives = t;
+    }
 
-    game(int j, int s){
-      this->nb_joueur = j;
-      this->score_max = s;}
+    void setScoreMax(int score){
+      this->score_max = score;
+    }
 
-    int getNbJoueur(){
-      return nb_joueur;
+    void setNomJoeur(String nom){
+      this->nom_joueur = nom;
+    }
+
+    void setNomJoeur(int tentatives){
+      this->nb_tentatives = tentatives;
     }
 };
+
+/* Classe créée à chaque tentatives */
+class score{ 
+  private:
+    int nb_fail;
+    int nb_success;
+
+  public:
+    score(){ this->nb_fail = 0; this->nb_success = 0;}
+
+    int getScore(){
+      return this->nb_success;
+    }
+    // Opérateur ++ augmente le nombre de success
+    void operator ++() { 
+      nb_success = nb_success +1; 
+    }
+    // Opérateur -- augmente le nombre de fail 
+    void operator --() {   
+      nb_fail = nb_fail +1;    
+    } 
+};
+
+
 
 //Fonctions
 boolean Touche(int pin);

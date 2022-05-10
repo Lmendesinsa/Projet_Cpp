@@ -70,7 +70,7 @@ void loop() {
   }
   Serial.println("La partie est finie");
   
-  Serial.println((liste[1].getScore()+liste[0].getScore()));
+  //Serial.println((liste[1].getScore()+liste[0].getScore()));
 
   delay(20000);
   
