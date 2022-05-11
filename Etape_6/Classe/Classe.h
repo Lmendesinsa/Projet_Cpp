@@ -101,11 +101,11 @@ class game{
       this->score_max = score;
     }
 
-    void setNomJoeur(String nom){ // Changer le nom du joueur
+    void setNomJoueur(String nom){ // Changer le nom du joueur
       this->nom_joueur = nom;
     }
 
-    void setNomJoeur(int tentatives){ // Changer le nombre de tentatives disponibles
+    void setNBTentatives(int tentatives){ // Changer le nombre de tentatives disponibles
       this->nb_tentatives = tentatives;
     }
 };

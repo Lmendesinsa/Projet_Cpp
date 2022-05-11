@@ -1,5 +1,7 @@
 #include "Classe.h"
 #include <Arduino.h>
+#include <stdexcept>
+#include <exception>
 #if defined(ARDUINO_ARCH_AVR)
 #define debug  Serial
 #elif defined(ARDUINO_ARCH_SAMD) ||  defined(ARDUINO_ARCH_SAM)
@@ -19,7 +21,7 @@ const int pinLEDRouge= D8;
 
 /* CHOIX DES PARAMETRES DE LA PARTIE */////////////////////////////////////////////////////
 // Paramètre à changer avant de lancer une partie
-const String nom_joueur= "Laura";             // Le nom du joueur en question
+const String nom_joueur= "Lucas";             // Le nom du joueur en question
 const int score_max= 5;                       // Le score max à atteindre pour finir la gamme
 const int nb_tentatives = 2;                  // Le nombre de tentatives pour le joueur d'améliorer son score
 
@@ -47,39 +49,46 @@ void loop() {
   while(num_tentative < nb_tentatives){ // Tant que il reste des tentatives au joueur
     Serial.println("LANCEMENT D'UNE TENTATIVE");
     while(fin_game==0){ // Tant que la game n'est pas finie
-      // Le joueur appui sur un bouton
-      if (bouton.getlevel()==HIGH){
-        ir.setDiode(HIGH);
-        Serial.println("Pew pew");
-         // Il touche la cible 
-        if(Touche(pinIrSensor)==true){
-          vert.setDiode(HIGH);
-          rouge.setDiode(LOW);
-          delay(1000);
-          Serial.println("Success");
-          ++score[num_tentative];
-          Serial.println(score[num_tentative].getScore());
+      //try{  
+        // Le joueur appui sur un bouton
+        if (bouton.getlevel()==HIGH){
+          ir.setDiode(HIGH);
+          Serial.println("Pew pew");
+          // Il touche la cible 
+          if(Touche(pinIrSensor)==true){
+            vert.setDiode(HIGH);
+            rouge.setDiode(LOW);
+            delay(1000);
+            Serial.println("Success");
+            ++score[num_tentative];
+            Serial.println(score[num_tentative].getScore());
+          }
+          // Il ne touche pas la cible
+          else{
+            vert.setDiode(LOW);
+            rouge.setDiode(HIGH);
+            delay(1000);
+            Serial.println("Fail");
+            --score[num_tentative];
+            Serial.println(score[num_tentative].getScore());
+          }
         }
-        // Il ne touche pas la cible
         else{
-          vert.setDiode(LOW);
-          rouge.setDiode(HIGH);
-          delay(1000);
-          Serial.println("Fail");
-          --score[num_tentative];
-          Serial.println(score[num_tentative].getScore());
+          ir.setDiode(LOW);
+          Serial.println(" ");
         }
-      }
-      else{
-        ir.setDiode(LOW);
-        Serial.println(" ");
-      }
-      
+      //}
+    
+      /*catch(const exception& e) {
+        Serial.print("exception caught: ");
+        Serial.prinln(e.what());
+      }*/
+
       // Vérifier si le score max a été atteint
       if (score[num_tentative].getScore()==score_max){
         fin_game = 1;
         num_tentative++;
-        Serial.print("Fin de la tentative numéro ");
+        Serial.print("Fin de la tentative numero ");
         Serial.println(num_tentative);
         delay(10000);  
       }
@@ -93,13 +102,13 @@ void loop() {
 
   // Parcours du tableau de scores du joueur
   for (int i = 0; i<nb_tentatives; i++){
-    Serial.print("Tentative numéro ");
+    Serial.print("Tentative numero ");
     Serial.println(i);
     Serial.print("Score final : ");
     Serial.println(score[i].getScore()-score[i].getFail());
     delay(100);
   }
-  Serial.println("Changer les paramètres et relancer pour nouvelles partie !");
+  Serial.println("Changer les parametres et relancer pour nouvelles partie !");
   delay(10000);
 
 }
