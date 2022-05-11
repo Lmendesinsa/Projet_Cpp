@@ -5,7 +5,6 @@ LE BRAZIDEC Lucas - MENDES Laura
 Projet étudiant qui gère le fonctionnement d'une carte ESP8266 entourée de capteurs/actionneurs. Le projet est tourné autour du fonctionnement d'un laser-game et gère les fonctionnalités : 
 - détection d'un laser
 - comptage de points
-- détection des mouvements
 - gestion de différentes phases de jeu
 
 Liste des composants 3v3 : 
@@ -14,3 +13,12 @@ Liste des composants 3v3 :
 - capteur de mouvement x2
 - bouton poussoir x4
 - LED x2
+
+Le principe est le suivant : 
+- le joueur entre : son nom, le nombre de fois où il doit atteindre la cible et le nombre de tentatives qu'il a,
+- la partie se lance : le joueur appuie sur un bouton pour tenter de toucher la cible,
+- si il touche la cible : son nombre de succès augmente et une Led verte s'allume,
+- sinon : son nombre d'échecs augmente et une Led rouge s'allume, 
+- une fois le nombre de succès max est atteint : la partie se termine et une nouvelle tentative commance,
+- une fois les tentatives achevées : les scores des différentes tentatives s'affichent.
+
