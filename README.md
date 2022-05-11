@@ -22,3 +22,7 @@ Le principe est le suivant :
 - une fois le nombre de succès max est atteint : la partie se termine et une nouvelle tentative commance,
 - une fois les tentatives achevées : les scores des différentes tentatives s'affichent.
 
+Lancement du projet : 
+- l'étape 6 contient la dernière version du projet et est exécutable en lançant le fichier .ino
+- le haut du fichier contient les constantes à remplir par le joueur pour lancer la partie 
+- pour recommencer une partie : il faut remodifier ces infos et téléverser à nouveau sur le ESP8266 
